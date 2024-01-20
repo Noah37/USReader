@@ -1,0 +1,65 @@
+{
+  "name": "USReader",
+  "version": "0.1.0",
+  "summary": "A short description of USReader.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/nongyun.cao/USReader",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "nongyun.cao": "nongyun.cao@okg.com"
+  },
+  "source": {
+    "git": "https://github.com/nongyun.cao/USReader.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "12.0"
+  },
+  "source_files": "USReader/Classes/**/*",
+  "resource_bundles": {
+    "USReader": [
+      "USReader/Assets/*"
+    ]
+  },
+  "public_header_files": [
+    "USReader/Classes/**/*.h",
+    "USReader/Classes/Speech/iflyMSC.framework/Headers/*.h"
+  ],
+  "frameworks": [
+    "UIKit",
+    "MapKit",
+    "CoreTelephony",
+    "CFNetwork",
+    "SystemConfiguration",
+    "Security",
+    "CoreFoundation",
+    "MobileCoreServices"
+  ],
+  "libraries": [
+    "c++",
+    "iconv",
+    "xml2",
+    "z"
+  ],
+  "vendored_frameworks": "USReader/Classes/Speech/iflyMSC.framework",
+  "dependencies": {
+    "Masonry": [
+
+    ],
+    "YYCategories": [
+
+    ],
+    "YYModel": [
+
+    ],
+    "SDWebImage": [
+
+    ],
+    "SpeechEngineTtsToB": [
+      "5.4.2.1-bugfix"
+    ]
+  }
+}

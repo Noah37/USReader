@@ -1,0 +1,48 @@
+PODS:
+  - Masonry (1.1.0)
+  - SDWebImage (5.18.3):
+    - SDWebImage/Core (= 5.18.3)
+  - SDWebImage/Core (5.18.3)
+  - SpeechEngineTtsToB (5.4.2.1-bugfix):
+    - TTNetworkManager (= 5.0.29.22)
+  - TTNetworkManager (5.0.29.22)
+  - USReader (0.1.0):
+    - Masonry
+    - SDWebImage
+    - SpeechEngineTtsToB (= 5.4.2.1-bugfix)
+    - YYCategories
+    - YYModel
+  - YYCategories (1.0.4):
+    - YYCategories/no-arc (= 1.0.4)
+  - YYCategories/no-arc (1.0.4)
+  - YYModel (1.0.4)
+
+DEPENDENCIES:
+  - USReader (from `../`)
+
+SPEC REPOS:
+  https://github.com/volcengine/volcengine-specs.git:
+    - SpeechEngineTtsToB
+    - TTNetworkManager
+  trunk:
+    - Masonry
+    - SDWebImage
+    - YYCategories
+    - YYModel
+
+EXTERNAL SOURCES:
+  USReader:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  SDWebImage: 96e0c18ef14010b7485210e92fac888587ebb958
+  SpeechEngineTtsToB: f0ba560499135b03339beb87e90a7215249b3d77
+  TTNetworkManager: 47d93100d944e2ae807e035d8636df92fd5cc390
+  USReader: ed885c680aeb122ec5dc6b45e352d4fe4574bc3e
+  YYCategories: 6bcd4314c6661a561410dce4a793379ebd306abd
+  YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
+
+PODFILE CHECKSUM: 7873ad2ffa74d24c5f03daf4abce60b92205dce0
+
+COCOAPODS: 1.12.1

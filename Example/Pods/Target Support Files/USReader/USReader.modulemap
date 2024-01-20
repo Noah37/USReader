@@ -1,0 +1,6 @@
+framework module USReader {
+  umbrella header "USReader-umbrella.h"
+
+  export *
+  module * { export * }
+}
