@@ -178,7 +178,7 @@
 		4CD7B4339582473C9AC661CEE907BD40 /* USReaderSpeechViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5609C03AE11CED88536977B76DE0310B /* USReaderSpeechViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D7324ABA0F137E0C96F4905BC2127D3 /* UIView+Extension.h in Headers */ = {isa = PBXBuildFile; fileRef = EBD3B5FB4E46A986B147272FC9CF75A7 /* UIView+Extension.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F312AF987B2E7D8492B9C0F0D99AC3D /* SDWebImageTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = D32696BFB026358374EF65BEDEDC9714 /* SDWebImageTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4F547A8E2B53AE4300E04380 /* hs_cloud.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F547A8D2B53AE4300E04380 /* hs_cloud.json */; };
+		4F5C096C2B5D1EA100BDB191 /* hs_cloud.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F5C096B2B5D1EA100BDB191 /* hs_cloud.json */; };
 		4F7D2708FCA984CFA224065120AB3063 /* YYCategories-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C5157BD27FEFE949B66C9EFCFB94EB55 /* YYCategories-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5061EC1CDB8927521D58CE053F8601C9 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD01066156E061A6896203BC8B632023 /* CoreFoundation.framework */; };
 		50919B97DCE2A9337C2236B41A8280A8 /* NSBezierPath+SDRoundedCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A69AF2CBA863E2314EE9D544BCAC75C /* NSBezierPath+SDRoundedCorners.m */; };
@@ -814,7 +814,7 @@
 		4CB7D479B9343BEA940B953D9CC03760 /* NSObject+YYAdd.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+YYAdd.m"; path = "YYCategories/Foundation/NSObject+YYAdd.m"; sourceTree = "<group>"; };
 		4E286382D89669FEBAE4B92A1CCE278D /* SDImageAWebPCoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDImageAWebPCoder.m; path = SDWebImage/Core/SDImageAWebPCoder.m; sourceTree = "<group>"; };
 		4E97B07385C52515B4CDC23EA40B75EB /* YYCategories-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "YYCategories-dummy.m"; sourceTree = "<group>"; };
-		4F547A8D2B53AE4300E04380 /* hs_cloud.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hs_cloud.json; sourceTree = "<group>"; };
+		4F5C096B2B5D1EA100BDB191 /* hs_cloud.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hs_cloud.json; sourceTree = "<group>"; };
 		4FA196C21388AC41D8101D3EA95E13F6 /* UIApplication+YYAdd.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIApplication+YYAdd.m"; path = "YYCategories/UIKit/UIApplication+YYAdd.m"; sourceTree = "<group>"; };
 		4FDA1BEA73F7D673F4290FCA408FD570 /* NSNumber+YYAdd.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSNumber+YYAdd.m"; path = "YYCategories/Foundation/NSNumber+YYAdd.m"; sourceTree = "<group>"; };
 		50741BDE41315C45B15189158B9B6D2F /* IFlyMSC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = IFlyMSC.h; sourceTree = "<group>"; };
@@ -1529,7 +1529,7 @@
 			isa = PBXGroup;
 			children = (
 				471372F527B72ADA398926017B6CE010 /* all_speakers.plist */,
-				4F547A8D2B53AE4300E04380 /* hs_cloud.json */,
+				4F5C096B2B5D1EA100BDB191 /* hs_cloud.json */,
 				A45B43417C5956524B545FA70A2E6B6E /* TTSBaseEngine.h */,
 				046B6958724FB79BE3A671EB48772F0D /* TTSBaseEngine.m */,
 				A2DC189230C2EFCACBB4F5473FB124A4 /* TTSEngineManager.h */,
@@ -2736,7 +2736,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F547A8E2B53AE4300E04380 /* hs_cloud.json in Resources */,
+				4F5C096C2B5D1EA100BDB191 /* hs_cloud.json in Resources */,
 				9C04D70D84CDC61CA75F22DB5911CEE6 /* USReader-USReader in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
