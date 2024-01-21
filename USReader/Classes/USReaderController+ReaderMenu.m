@@ -9,6 +9,7 @@
 #import "USReaderCatalogViewController.h"
 #import "USReaderAnimationStyleViewController.h"
 #import "USReaderConfigure.h"
+#import "USReaderAudioPlayer.h"
 
 @implementation USReaderController (ReaderMenu)
 
@@ -34,7 +35,8 @@
 
 /// 点击返回
 - (void)readMenuClickBack:(USReaderMenu *)readMenu {
-    
+    [[USReaderAudioPlayer sharedPlayer] stop];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /// 点击书签

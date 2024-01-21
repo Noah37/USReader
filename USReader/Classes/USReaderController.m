@@ -11,7 +11,6 @@
 #import "USReaderController+EffectType.h"
 #import "USPageViewController.h"
 #import "USReaderConfigure.h"
-#import "USReaderAudioPlayer.h"
 
 @interface USReaderController ()<USReaderContentViewDelegate>
 
@@ -63,7 +62,6 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
-    [[USReaderAudioPlayer sharedPlayer] stop];
 }
 
 - (void)setDisplayViewController:(UIViewController<USReaderProtocol> *)displayViewController {

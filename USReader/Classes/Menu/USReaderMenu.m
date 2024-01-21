@@ -267,7 +267,9 @@
 
 #pragma mark - USReaderTopViewDelegate
 - (void)readerTopViewClickBack:(USReaderTopView *)readerTopView {
-    [self.readerController.navigationController popViewControllerAnimated:YES];
+    if ([self.delegate respondsToSelector:@selector(readMenuClickBack:)]) {
+        [self.delegate readMenuClickBack:self];
+    }
 }
 
 - (void)readerTopViewClickMore:(USReaderTopView *)readerTopView {
