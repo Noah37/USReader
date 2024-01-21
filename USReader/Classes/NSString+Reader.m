@@ -41,6 +41,14 @@
     return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
+- (NSString *)removeAllWhitespaceAndNewline {
+    NSString *result = [self stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    result = [result stringByReplacingOccurrencesOfString:@"　　" withString:@""];
+    result = [result stringByReplacingOccurrencesOfString:@"”" withString:@""];
+    result = [result stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+    return result;
+}
+
 - (BOOL)isImageFile {
     return [self hasSuffix:@".jpg"] || [self hasSuffix:@".png"];
 }

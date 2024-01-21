@@ -8,6 +8,7 @@
 #import "TTSHuoShanEngine.h"
 #import "USHuoShanDefines.h"
 #import "USReaderSpeechConfig.h"
+#import "NSString+Reader.h"
 
 @interface TTSHuoShanEngine ()
 
@@ -267,6 +268,7 @@
 -(void)addSentence:(NSString*) text {
     NSCharacterSet* blankChar = [NSCharacterSet characterSetWithCharactersInString:@" "];
     NSString* tmp = [text stringByTrimmingCharactersInSet:blankChar];
+    tmp = [tmp removeAllWhitespaceAndNewline];
     if (tmp.length > 0) {
         [self.ttsSynthesisText addObject:tmp];
     }
@@ -433,8 +435,10 @@
         [self updateTtsResultText:playingId];
     });
     if (self.ttsSynthesisFromPlayer) {
-        [self triggerSynthesis];
-        self.ttsSynthesisFromPlayer = FALSE;
+        if (self.ttsSynthesisMap.allKeys.count < 5) {
+            [self triggerSynthesis];
+            self.ttsSynthesisFromPlayer = FALSE;
+        }
     } else if (self.ttsSynthesisMap.allKeys.count == 0) {
         // 说明播放完成了，开始合成下一章
         dispatch_async(dispatch_get_main_queue(), ^{

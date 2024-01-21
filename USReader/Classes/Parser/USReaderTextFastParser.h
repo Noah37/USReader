@@ -38,6 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 获取单个指定章节
 + (USReaderChapterModel *)parser:(USReaderModel *)readModel chapterId:(NSNumber *)chapterId isUpdateFont:(BOOL)isUpdateFont;
 
++ (NSString *)fullBookSuffix;
+
 @end
 
 NS_ASSUME_NONNULL_END

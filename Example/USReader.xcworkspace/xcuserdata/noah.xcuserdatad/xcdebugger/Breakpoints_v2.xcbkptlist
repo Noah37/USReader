@@ -48,5 +48,22 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0ECE1964-14AB-400A-81B2-695D69D845D8"
+            shouldBeEnabled = "No"
+            condition = "self.ttsPlayingIndex == -1;"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../USReader/Classes/Speech/TTSHuoShanEngine.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "500"
+            endingLineNumber = "500"
+            landmarkName = "-updateTtsResultText:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 去除首尾空格和换行
 - (NSString *)removeSEHeadAndTail;
 
+- (NSString *)removeAllWhitespaceAndNewline;
+
 - (BOOL)isImageFile;
 - (BOOL)isTxtFile;
 
