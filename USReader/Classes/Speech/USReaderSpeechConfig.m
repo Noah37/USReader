@@ -150,7 +150,8 @@
 }
 
 - (void)loadHSSpeakers {
-    NSString *allSpeakersPlist = [[NSBundle bundleForClass:[self class]] pathForResource:@"hs_cloud" ofType:@"json"];
+    
+    NSString *allSpeakersPlist = [[USConstants resourceBundle] pathForResource:@"hs_cloud" ofType:@"json"];
     //获取文件内容
     NSString *jsonStr  = [NSString stringWithContentsOfFile:allSpeakersPlist encoding:NSUTF8StringEncoding error:nil];
     //将文件内容转成数据

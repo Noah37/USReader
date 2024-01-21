@@ -2,7 +2,7 @@
   "name": "USReader",
   "version": "0.1.0",
   "summary": "A short description of USReader.",
-  "description": "TODO: Add long description of the pod here.",
+  "description": "A novel reader for cloudreve.",
   "homepage": "https://github.com/nongyun.cao/USReader",
   "license": {
     "type": "MIT",
