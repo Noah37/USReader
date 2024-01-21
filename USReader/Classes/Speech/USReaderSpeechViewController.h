@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)reloadData;
 
+- (void)destroy;
+
 @end
 
 NS_ASSUME_NONNULL_END

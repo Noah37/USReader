@@ -16,6 +16,7 @@
 #import "TTSEngineManager.h"
 #import "USReaderSpeechOperationView.h"
 #import "USReaderAudioPlayer.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface USReaderSpeechViewController ()<TTSEngineDataSource,TTSBaseEngineDelegate,USReaderSpeechOperationViewDelegate, USReaderAudioPlayerDataSource,USReaderAudioPlayerDelegate>
 
@@ -70,10 +71,21 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(speakCancel) name:USReaderSpeechSpeakCancelNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(speakPause) name:USReaderSpeechSpeakPauseNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(speakResume) name:USReaderSpeechSpeakResumeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(audioInterruptionHandler:)
+                                                 name:AVAudioSessionInterruptionNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(appWillTerminate:)
+                                                 name:UIApplicationWillTerminateNotification
+                                               object:nil];
+    
     [USReaderAudioPlayer sharedPlayer].dataSource = self;
     [USReaderAudioPlayer sharedPlayer].delegate = self;
     
     [self setCurrentRecordModel:self.recordModel];
+    
+    [self createRemoteCommandCenter];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -135,6 +147,157 @@
 - (void)startSpeak:(NSString *)sentence {
     [[USReaderAudioPlayer sharedPlayer] stop];
     [[USReaderAudioPlayer sharedPlayer] playWithRecord:self.currentRecordModel];
+}
+
+
+// 更新锁屏界面信息
+- (void)refreshLockScreenInfo {
+   
+   // 1.获取锁屏中心
+   MPNowPlayingInfoCenter *playingInfoCenter = [MPNowPlayingInfoCenter defaultCenter];
+   // 初始化一个存放音乐信息的字典
+   NSMutableDictionary *playingInfoDict = [NSMutableDictionary dictionary];
+   
+   // 2、设置歌曲名
+   [playingInfoDict setObject:self.recordModel.chapterModel.name
+                       forKey:MPMediaItemPropertyTitle];
+   [playingInfoDict setObject:self.recordModel.bookID
+                       forKey:MPMediaItemPropertyAlbumTitle];
+   
+   
+   // 3、设置封面的图片
+   UIImage *image = [self.recordModel firstChapter].avatar;
+   if (image) {
+       MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithImage:image];
+       [playingInfoDict setObject:artwork forKey:MPMediaItemPropertyArtwork];
+   }
+   
+   // 4、设置歌曲的时长和已经消耗的时间
+    CMTime durationTime = { 1, 1, kCMTimeFlags_Valid, 1};
+    CMTime elapsedTime = { 0, 0, kCMTimeFlags_Valid, 0};
+   NSNumber *playbackDuration = @(CMTimeGetSeconds(durationTime));
+   NSNumber *elapsedPlaybackTime = @(CMTimeGetSeconds(elapsedTime));
+   
+   if (!playbackDuration || !elapsedPlaybackTime) {
+       return;
+   }
+   [playingInfoDict setObject:playbackDuration
+                       forKey:MPMediaItemPropertyPlaybackDuration];
+   [playingInfoDict setObject:elapsedPlaybackTime
+                       forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
+   [playingInfoDict setObject:@(1) forKey:MPNowPlayingInfoPropertyPlaybackRate];
+   
+   //音乐信息赋值给获取锁屏中心的nowPlayingInfo属性
+   playingInfoCenter.nowPlayingInfo = playingInfoDict;
+}
+
+
+// 添加远程控制
+- (void)createRemoteCommandCenter {
+    MPRemoteCommandCenter *commandCenter = [MPRemoteCommandCenter sharedCommandCenter];
+    
+    MPRemoteCommand *pauseCommand = [commandCenter pauseCommand];
+    [pauseCommand setEnabled:YES];
+    [pauseCommand addTarget:self action:@selector(remotePauseEvent)];
+    
+    MPRemoteCommand *playCommand = [commandCenter playCommand];
+    [playCommand setEnabled:YES];
+    [playCommand addTarget:self action:@selector(remotePlayEvent)];
+    
+    MPRemoteCommand *nextCommand = [commandCenter nextTrackCommand];
+    [nextCommand setEnabled:YES];
+    [nextCommand addTarget:self action:@selector(remoteNextEvent)];
+    
+    MPRemoteCommand *previousCommand = [commandCenter previousTrackCommand];
+    [previousCommand setEnabled:YES];
+    [previousCommand addTarget:self action:@selector(remotePreviousEvent)];
+    
+    if (@available(iOS 9.1, *)) {
+        MPRemoteCommand *changePlaybackPositionCommand = [commandCenter changePlaybackPositionCommand];
+        [changePlaybackPositionCommand setEnabled:YES];
+        [changePlaybackPositionCommand addTarget:self action:@selector(remoteChangePlaybackPosition:)];
+    }
+}
+
+- (void)removeCommandCenterTargets
+{
+    MPRemoteCommandCenter *commandCenter = [MPRemoteCommandCenter sharedCommandCenter];
+    [[commandCenter playCommand] removeTarget:self];
+    [[commandCenter pauseCommand] removeTarget:self];
+    [[commandCenter nextTrackCommand] removeTarget:self];
+    [[commandCenter previousTrackCommand] removeTarget:self];
+    
+    if (@available(iOS 9.1, *)) {
+        [commandCenter.changePlaybackPositionCommand removeTarget:self];
+    }
+}
+
+- (MPRemoteCommandHandlerStatus)remotePlayEvent {
+    
+    [[USReaderAudioPlayer sharedPlayer] resume];
+    return MPRemoteCommandHandlerStatusSuccess;
+}
+
+- (MPRemoteCommandHandlerStatus)remotePauseEvent {
+    
+    [[USReaderAudioPlayer sharedPlayer] pause];
+    return MPRemoteCommandHandlerStatusSuccess;
+}
+
+- (MPRemoteCommandHandlerStatus)remoteNextEvent {
+    [self USReaderSpeechOperationViewClickNext:nil];
+    return MPRemoteCommandHandlerStatusSuccess;
+}
+
+- (MPRemoteCommandHandlerStatus)remotePreviousEvent {
+    
+    [self USReaderSpeechOperationViewClickPrevious:nil];
+    return MPRemoteCommandHandlerStatusSuccess;
+}
+
+- (MPRemoteCommandHandlerStatus)remoteChangePlaybackPosition:(MPRemoteCommandEvent *)event {
+    
+//    MPChangePlaybackPositionCommandEvent * playbackPositionEvent = (MPChangePlaybackPositionCommandEvent *)event;
+//    [self seekToTime:playbackPositionEvent.positionTime];
+    return MPRemoteCommandHandlerStatusSuccess;
+}
+
+-(void)appWillTerminate:(NSNotification*)note {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:AVAudioSessionInterruptionNotification
+                                                  object:nil];
+}
+
+- (void)audioInterruptionHandler:(NSNotification*)notification {
+    AVAudioSessionInterruptionType interruptionType = (AVAudioSessionInterruptionType)[[notification.userInfo objectForKey:AVAudioSessionInterruptionTypeKey] unsignedIntegerValue];
+    AVAudioSessionInterruptionOptions intertuptionOptions = [[notification.userInfo objectForKey:AVAudioSessionInterruptionOptionKey] unsignedIntValue];
+    NSLog(@"Receive audio interruption notification, type: %lu, options: %lu.", (unsigned long)interruptionType, (unsigned long)intertuptionOptions);
+    if (interruptionType == AVAudioSessionInterruptionTypeBegan) {
+        NSLog(@"Audio session interruption began");
+        @synchronized (self) {
+            [[USReaderAudioPlayer sharedPlayer] pause];
+        }
+    } else if (interruptionType == AVAudioSessionInterruptionTypeEnded) {
+        @synchronized (self) {
+            NSLog(@"Audio session interruption ended");
+            if (intertuptionOptions == AVAudioSessionInterruptionOptionShouldResume) {
+                AVAudioSession *session = [AVAudioSession sharedInstance];
+                AVAudioSessionCategoryOptions cur_options = session.categoryOptions;
+                // AudioQueueStart() will return AVAudioSessionErrorCodeCannotInterruptOthers if options didn't contains AVAudioSessionCategoryOptionMixWithOthers
+                if (!(cur_options & AVAudioSessionCategoryOptionMixWithOthers)) {
+                    AVAudioSessionCategoryOptions readyOptions = AVAudioSessionCategoryOptionMixWithOthers | cur_options;
+                    [session setCategory:AVAudioSessionCategoryPlayback withOptions:readyOptions error:nil];
+                }
+                [[USReaderAudioPlayer sharedPlayer] resume];
+                
+                cur_options = session.categoryOptions;
+                // Remove AVAudioSessionCategoryOptionMixWithOthers, or the playback will not be interrupted any more
+                if (cur_options & AVAudioSessionCategoryOptionMixWithOthers) {
+                    [session setCategory:AVAudioSessionCategoryPlayback withOptions:((~AVAudioSessionCategoryOptionMixWithOthers) & cur_options) error:nil];
+                }
+            }
+        }
+    }
 }
 
 #pragma mark - USReaderSpeechOperationViewDelegate
@@ -228,6 +391,10 @@
 }
 
 #pragma mark - action
+- (void)destroy {
+    [self removeCommandCenterTargets];
+}
+
 - (void)closeAction {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -257,6 +424,7 @@
     [self.operationView reloadData];
     _chapterLabel.text = self.currentRecordModel.chapterModel.name;
     _bookLabel.text = self.currentRecordModel.bookID;
+    [self refreshLockScreenInfo];
 }
 
 - (void)speakBegin {

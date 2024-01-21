@@ -23,6 +23,8 @@
 
 @property (nonatomic, assign) BOOL isAudio;
 
+@property (nonatomic, assign) BOOL isPlaying;
+
 @property (nonatomic, strong) USReaderRecordModel *record;
 
 @property (nonatomic, strong) NSTimer *audioTimer;
@@ -42,6 +44,7 @@
 
 - (void)playWithUrl:(NSURL *)url {
     _isAudio = url ? YES:NO;
+    _isPlaying = YES;
     if (url) {
         self.audioTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timeChangeAction) userInfo:nil repeats:YES];
         [self.audioTimer fire];
@@ -70,6 +73,7 @@
 
 - (BOOL)playAtTime:(NSTimeInterval)time {
     if (self.isAudio) {
+        _isPlaying = YES;
         self.audioTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timeChangeAction) userInfo:nil repeats:YES];
         [self.audioTimer fire];
         self.avAudioPlayer.currentTime = time;
@@ -86,6 +90,7 @@
 }
 
 - (void)stop {
+    _isPlaying = NO;
     [self.audioTimer invalidate];
     self.audioTimer = nil;
     [self.avAudioPlayer stop];

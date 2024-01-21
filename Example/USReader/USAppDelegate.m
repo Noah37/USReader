@@ -12,6 +12,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // 在App启动后开启远程控制事件, 接收来自锁屏界面和上拉菜单的控制
+    [application beginReceivingRemoteControlEvents];
     self.window.backgroundColor = [UIColor whiteColor];
     [UINavigationBar appearance].backgroundColor = [UIColor whiteColor];
     [UINavigationBar appearance].barTintColor = [UIColor whiteColor];
@@ -65,6 +67,8 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    // 在App要终止前结束接收远程控制事件, 也可以在需要终止时调用该方法终止
+    [application endReceivingRemoteControlEvents];
 }
 
 @end
