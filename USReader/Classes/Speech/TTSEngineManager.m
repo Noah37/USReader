@@ -62,9 +62,9 @@
 }
 
 - (void)stop {
-    [self.hsCloudEngine stop];
-    [self.iflyCloudEngine stop];
-    [self.iflyOfflineEngine stop];
+    [_hsCloudEngine stop];
+    [_iflyCloudEngine stop];
+    [_iflyOfflineEngine stop];
 
     switch (self.dataSource.engineType) {
         case TTSEngineTypeHSCloud:
@@ -79,9 +79,9 @@
 }
 
 - (void)pause {
-    [self.hsCloudEngine pause];
-    [self.iflyCloudEngine pause];
-    [self.iflyOfflineEngine pause];
+    [_hsCloudEngine pause];
+    [_iflyCloudEngine pause];
+    [_iflyOfflineEngine pause];
     switch (self.dataSource.engineType) {
         case TTSEngineTypeHSCloud:
             break;
@@ -95,9 +95,9 @@
 }
 
 - (void)resume {
-    [self.hsCloudEngine resume];
-    [self.iflyCloudEngine resume];
-    [self.iflyOfflineEngine resume];
+    [_hsCloudEngine resume];
+    [_iflyCloudEngine resume];
+    [_iflyOfflineEngine resume];
     switch (self.dataSource.engineType) {
         case TTSEngineTypeHSCloud:
             break;
