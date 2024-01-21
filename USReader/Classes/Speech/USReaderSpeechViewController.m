@@ -159,14 +159,14 @@
    NSMutableDictionary *playingInfoDict = [NSMutableDictionary dictionary];
    
    // 2、设置歌曲名
-   [playingInfoDict setObject:self.recordModel.chapterModel.name
+   [playingInfoDict setObject:self.currentRecordModel.chapterModel.name
                        forKey:MPMediaItemPropertyTitle];
-   [playingInfoDict setObject:self.recordModel.bookID
+   [playingInfoDict setObject:self.currentRecordModel.bookID
                        forKey:MPMediaItemPropertyAlbumTitle];
    
    
    // 3、设置封面的图片
-   UIImage *image = [self.recordModel firstChapter].avatar;
+   UIImage *image = [self.currentRecordModel firstChapter].avatar;
    if (image) {
        MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithImage:image];
        [playingInfoDict setObject:artwork forKey:MPMediaItemPropertyArtwork];
