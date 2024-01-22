@@ -45,7 +45,7 @@ typedef NSDictionary<NSString *, NSValue *> USValueDict;
         return nil;
     }
     // 获取文件后缀名作为 bookName
-    NSString *bookName = [[url.absoluteString stringByRemovingPercentEncoding].lastPathComponent.stringByDeletingPathExtension stringByReplacingOccurrencesOfString:[self fullBookSuffix] withString:@""];
+    NSString *bookName = [url.absoluteString stringByRemovingPercentEncoding].lastPathComponent.stringByDeletingPathExtension;
     // bookName 作为 bookID
     NSString *bookId = bookName;
     if (bookId.isEmpty) {
@@ -64,9 +64,35 @@ typedef NSDictionary<NSString *, NSValue *> USValueDict;
         if (readModel.chapterListModels.count == 0) {
             return nil;
         }
+        NSMutableArray <USReaderChapterListModel *>*chapterListModels = readModel.chapterListModels;
+        USReaderChapterListModel *chapterListModel = nil;
+        // 插入第一章，介绍文案等
+        NSInteger firstIndex = chapterListModels.firstObject.idString.integerValue;
+        if (firstIndex > 0) {
+            firstIndex -= 1;
+        }
+        USReaderChapterModel *firstChapterModel  = [[USReaderChapterModel alloc] init];
+        firstChapterModel.bookID = bookName;
+        firstChapterModel.idString = [NSNumber numberWithInteger:firstIndex];
+        firstChapterModel.name = bookName;
+        firstChapterModel.content = bookName;
+        firstChapterModel.previousChapterID = nil;
+        firstChapterModel.nextChapterID = chapterListModels.firstObject.idString;
+        [firstChapterModel save];
         
-        [readModel.recordModel modify:readModel.chapterListModels.firstObject.idString toPage:0 isSave:YES];
-    
+        chapterListModel = [self GetChapterListModel:firstChapterModel];
+        [chapterListModels insertObject:chapterListModel atIndex:0];
+        readModel.chapterListModels = chapterListModels;
+        
+        [readModel.recordModel modify:chapterListModel.idString toPage:0 isSave:YES];
+        
+        // 遍历所有chapterModel
+        for (USReaderChapterListModel *chapterListModel in chapterListModels) {
+            [self parser:readModel chapterId:chapterListModel.idString isUpdateFont:YES];
+        }
+                
+        [self parserChapter:firstChapterModel readModel:readModel chapterId:chapterListModel.idString isUpdateFont:YES];
+
         [readModel save];
         
         return readModel;
