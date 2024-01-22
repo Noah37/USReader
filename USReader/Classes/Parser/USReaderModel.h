@@ -44,6 +44,8 @@ typedef NSDictionary<NSString *, NSValue *> USReaderRange;
 /// 移除当前书签
 - (BOOL)removeMark:(NSInteger)index;
 
+- (void)deleteRead;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface USKeyedArchiver : NSObject
 
++ (NSString *)readerPathWithFolderName:(NSString *)folderName;
 + (void)archiver:(NSString *)folderName fileName:(NSString *)fileName object:(id)object;
 + (id)unarchiver:(NSString *)folderName fileName:(NSString *)fileName;
 + (BOOL)remove:(NSString *)folderName fileName:(NSString *)fileName;

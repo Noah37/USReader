@@ -10,6 +10,11 @@
 
 @implementation USKeyedArchiver
 
++ (NSString *)readerPathWithFolderName:(NSString *)folderName {
+    NSString *path = [NSString stringWithFormat:@"%@/%@/%@", US_DOCUMENTPATH, US_READERFOLDER, folderName];
+    return path;
+}
+
 + (void)archiver:(NSString *)folderName fileName:(NSString *)fileName object:(id)object {
     NSString *path = [NSString stringWithFormat:@"%@/%@/%@", US_DOCUMENTPATH, US_READERFOLDER, folderName];
     if ([self createFile:path]) {

@@ -60,6 +60,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)save;
 
+- (void)deleteChapter;
+
 /// 是否存在章节内容
 + (BOOL)isExist:(NSString *)bookID chapterID:(NSNumber *)chapterId;
 

@@ -42,6 +42,12 @@
     [USKeyedArchiver archiver:_bookID fileName:@"US_READER_OBJECT" object:self];
 }
 
+- (void)deleteRead {
+    [USKeyedArchiver remove:_bookID fileName:@"US_READER_OBJECT"];
+    NSString *path = [USKeyedArchiver readerPathWithFolderName:_bookID];
+    [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+}
+
 /// 移除当前书签
 - (BOOL)removeMark:(NSInteger)index {
     [self.markModels removeObjectAtIndex:index];

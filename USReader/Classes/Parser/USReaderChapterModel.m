@@ -144,6 +144,10 @@
     [USKeyedArchiver archiver:self.bookID fileName:self.idString.stringValue object:self];
 }
 
+- (void)deleteChapter {
+    
+}
+
 /// 是否存在章节内容
 + (BOOL)isExist:(NSString *)bookID chapterID:(NSNumber *)chapterId {
     return [USKeyedArchiver isExist:bookID fileName:chapterId.stringValue];

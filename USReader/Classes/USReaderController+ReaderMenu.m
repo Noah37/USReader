@@ -35,8 +35,20 @@
 
 /// 点击返回
 - (void)readMenuClickBack:(USReaderMenu *)readMenu {
-    [[USReaderAudioPlayer sharedPlayer] stop];
-    [self.navigationController popViewControllerAnimated:YES];
+    // 弹窗提醒，可选择删除缓存
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:(UIAlertControllerStyleActionSheet)];
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"删除" style:(UIAlertActionStyleDestructive) handler:^(UIAlertAction * _Nonnull action) {
+        [self.readerModel deleteRead];
+        [[USReaderAudioPlayer sharedPlayer] stop];
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
+        [[USReaderAudioPlayer sharedPlayer] stop];
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    [controller addAction:deleteAction];
+    [controller addAction:cancelAction];
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 /// 点击书签
