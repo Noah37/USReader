@@ -35,6 +35,46 @@ typedef NSDictionary<NSString *, NSValue *> USValueDict;
     });
 }
 
+/// 解析本地链接
+///
+/// - Parameter url: 本地文件地址
+/// - Returns: 阅读对象
++ (USReaderModel *)parserTXT:(NSURL *)url {
+    // 链接不为空且是本地文件路径
+    if (url == nil || url.absoluteString.isEmpty || !url.isFileURL) {
+        return nil;
+    }
+    // 获取文件后缀名作为 bookName
+    NSString *bookName = [[url.absoluteString stringByRemovingPercentEncoding].lastPathComponent.stringByDeletingPathExtension stringByReplacingOccurrencesOfString:[self fullBookSuffix] withString:@""];
+    // bookName 作为 bookID
+    NSString *bookId = bookName;
+    if (bookId.isEmpty) {
+        return nil;
+    }
+    if (![USReaderModel isExist:bookId]) {
+        NSString *content = [USReaderParser encode:url];
+        if (content.isEmpty) {
+            return nil;
+        }
+        USReaderModel *readModel = [USReaderModel model:bookId];
+        readModel.bookSourceType = USBookSourceTypeLocal;
+        readModel.bookName = bookName;
+        [self parse:readModel content:content];
+        
+        if (readModel.chapterListModels.count == 0) {
+            return nil;
+        }
+        
+        [readModel.recordModel modify:readModel.chapterListModels.firstObject.idString toPage:0 isSave:YES];
+    
+        [readModel save];
+        
+        return readModel;
+    } else {
+        return [USReaderModel model:bookId];
+    }
+}
+
 + (USReaderModel *)parnerNovelChaptersURL:(NSURL *)url {
     // 链接不为空且是本地文件路径
     if (url == nil || url.absoluteString.isEmpty || !url.isFileURL) {
@@ -189,7 +229,7 @@ typedef NSDictionary<NSString *, NSValue *> USValueDict;
     if ([self isExistFullBook:url]) {
         return [self parnerNovelFullBookURL:url];
     } else if ([url.lastPathComponent isTxtFile]) {
-        return [self parser:url];
+        return [self parserTXT:url];
     } else {
         return [self parnerNovelChaptersURL:url];
     }
