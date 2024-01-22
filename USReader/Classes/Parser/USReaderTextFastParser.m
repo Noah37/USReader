@@ -188,6 +188,8 @@ typedef NSDictionary<NSString *, NSValue *> USValueDict;
 + (USReaderModel *)parserNovelURL:(NSURL *)url {
     if ([self isExistFullBook:url]) {
         return [self parnerNovelFullBookURL:url];
+    } else if ([url.lastPathComponent isTxtFile]) {
+        return [self parser:url];
     } else {
         return [self parnerNovelChaptersURL:url];
     }
