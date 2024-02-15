@@ -95,6 +95,20 @@
     self.light = [NSNumber numberWithDouble:light];
 }
 
+- (UIFont *)titleFont {
+    NSInteger size = self.fontSize.integerValue + 1;
+    if (_customFont) {
+        return [UIFont fontWithName:_customFont.fontName size:size];
+    } else if (self.fontType == USFontTypeOne) {
+        return [UIFont fontWithName:@"EuphemiaUCAS-Italic" size:size];
+    } else if (self.fontType == USFontTypeTwo) {
+        return [UIFont fontWithName:@"AmericanTypewriter-Light" size:size];
+    } else if (self.fontType == USFontTypeThree) {
+        return [UIFont fontWithName:@"Papyrus" size:size];
+    }
+    return [UIFont systemFontOfSize:size];
+}
+
 - (UIFont *)font:(BOOL)isTitle {
     NSInteger size = self.fontSize.integerValue + (isTitle ? 8:0);
     if (_customFont) {

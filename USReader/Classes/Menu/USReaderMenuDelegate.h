@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)readMenuDidEndDisplay:(USReaderMenu *)readMenu;
 /// 点击返回
 - (void)readMenuClickBack:(USReaderMenu *)readMenu;
+/// 点击更多
+- (void)readMenuClickMore:(USReaderMenu *)readMenu;
 /// 点击书签
 - (void)readMenuClickMark:(USReaderMenu *)readMenu topView:(USReaderTopView *)topView markButton:(UIButton *)markButton;
 /// 点击目录

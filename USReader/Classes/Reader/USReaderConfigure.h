@@ -77,6 +77,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) USReaderFontFile *customFont;
 /// 亮度设置 [US_READER_LIGHT_MIN,US_READER_LIGHT_MAX]
 @property (nonatomic, strong, readonly) NSNumber *light;
+/// 标题字体
+@property (nonatomic, strong, readonly) UIFont *titleFont;
 
 + (instancetype)shared;
 - (UIFont *)font:(BOOL)isTitle;

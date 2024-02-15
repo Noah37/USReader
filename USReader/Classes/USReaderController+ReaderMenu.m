@@ -35,6 +35,11 @@
 
 /// 点击返回
 - (void)readMenuClickBack:(USReaderMenu *)readMenu {
+    
+}
+
+/// 点击更多
+- (void)readMenuClickMore:(USReaderMenu *)readMenu {
     // 弹窗提醒，可选择删除缓存
     UIAlertController *controller = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:(UIAlertControllerStyleActionSheet)];
     UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"删除" style:(UIAlertActionStyleDestructive) handler:^(UIAlertAction * _Nonnull action) {
@@ -43,8 +48,7 @@
         [self.navigationController popViewControllerAnimated:YES];
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
-        [[USReaderAudioPlayer sharedPlayer] stop];
-        [self.navigationController popViewControllerAnimated:YES];
+        // nop
     }];
     [controller addAction:deleteAction];
     [controller addAction:cancelAction];
@@ -75,11 +79,13 @@
 /// 点击上一章
 - (void)readMenuClickPreviousChapter:(USReaderMenu *)readMenu {
     [self.displayViewController lastChapter];
+    [readMenu reload];
 }
 
 /// 点击下一章
 - (void)readMenuClickNextChapter:(USReaderMenu *)readMenu {
     [self.displayViewController nextChapter];
+    [readMenu reload];
 }
 
 /// 拖拽章节进度(分页进度)
@@ -103,6 +109,7 @@
 /// 点击切换字体
 - (void)readMenuClickFont:(USReaderMenu *)readMenu {
     [self.displayViewController reloadData];
+    [readMenu reload];
 }
 
 /// 点击切换字体大小
@@ -126,7 +133,7 @@
     __weak typeof(self)weakSelf = self;
     styleVC.didSelectRow = ^(NSIndexPath * _Nonnull indexPath, USReaderEffectTypeConfigure *configure) {
         [USReaderConfigure shared].effectTypeConfigure.effectType = configure.effectType;
-        [self switchToEffectType:configure.effectType];
+        [weakSelf switchToEffectType:configure.effectType];
     };
     [self.navigationController pushViewController:styleVC animated:YES];
     [self.readerMenu dismiss];
@@ -162,12 +169,14 @@
 - (void)readMenuClickFontSizeAdd:(USReaderMenu *)readMenu {
     [[USReaderConfigure shared] fontPlus];
     [self.displayViewController reloadData];
+    [readMenu reload];
 }
 
 /// 点击切换字体大小
 - (void)readMenuClickFontSizePlus:(USReaderMenu *)readMenu {
     [[USReaderConfigure shared] fontMinus];
     [self.displayViewController reloadData];
+    [readMenu reload];
 }
 
 @end

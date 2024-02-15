@@ -7,6 +7,7 @@
 
 #import "USReaderTopView.h"
 #import <Masonry/Masonry.h>
+#import "USReaderConfigure.h"
 
 @interface USReaderTopView ()
 
@@ -42,13 +43,13 @@
             make.left.equalTo(self.backButton.mas_right).offset(20);
             make.right.equalTo(self.rightContainer.mas_left).offset(-20);
             make.bottom.inset(16);
-            make.top.inset(KTopBarHeight - 16 - 20);
+            make.top.mas_lessThanOrEqualTo(KTopBarHeight - 16 - 20);
         }];
         
         [self.rightContainer mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.inset(16);
             make.bottom.inset(16);
-            make.top.equalTo(self.titleLabel.mas_top);
+            make.top.inset(KTopBarHeight - 16 - 20);
         }];
     }
     return self;
@@ -90,9 +91,10 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] init];
-        _titleLabel.font = [UIFont systemFontOfSize:13];
+        _titleLabel.font = [[USReaderConfigure shared] titleFont];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.textColor = [UIColor whiteColor];
+        _titleLabel.numberOfLines = 0;
     }
     return _titleLabel;
 }

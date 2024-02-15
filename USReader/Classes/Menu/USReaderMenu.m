@@ -26,6 +26,8 @@
 
 @property (nonatomic, strong) USReaderMoreView *moreView;
 
+@property (nonatomic, strong) UIControl *menuTapView;
+
 @property (nonatomic, strong) UIButton *speechButton;
 
 @property (nonatomic, strong) UITapGestureRecognizer *singleTap;
@@ -61,6 +63,7 @@
     [self.contentView addSubview:self.bottomView];
     [self.contentView addSubview:self.moreView];
     [self.contentView addSubview:self.speechButton];
+    [self.contentView addSubview:self.menuTapView];
     
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(self.topView.superview.mas_top);
@@ -70,6 +73,12 @@
     [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(self.bottomView.superview.mas_bottom).offset(KBottomBarHeight);
         make.left.right.inset(0);
+    }];
+    
+    [self.menuTapView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.inset(0);
+        make.top.inset(KTopBarHeight);
+        make.bottom.inset(KBottomBarHeight);
     }];
     
     [self.moreView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -82,6 +91,7 @@
         make.bottom.equalTo(self.speechButton.superview).offset(-200);
     }];
     
+    self.menuTapView.hidden = YES;
     [self.contentView addGestureRecognizer:self.singleTap];
 }
 
@@ -96,11 +106,16 @@
     self.isMoreShow = NO;
 }
 
+- (void)reload {
+    [self.topView setTitle:self.readerController.currentRecordModel.chapterModel.name];
+}
+
 - (void)showMenu:(BOOL)isShow {
     if (self.isMenuShow == isShow || !self.isAnimateComplete) {
         return;
     }
     self.isAnimateComplete = NO;
+    self.menuTapView.hidden = !isShow;
     if (isShow) {
         self.speechButton.hidden = NO;
         if ([self.delegate respondsToSelector:@selector(readMenuWillDisplay:)]) {
@@ -135,6 +150,7 @@
 
 - (void)showTopView:(BOOL)isShow completion:(void(^)(void))completion {
 //    [[UIApplication sharedApplication] setStatusBarHidden:!isShow withAnimation:(UIStatusBarAnimationSlide)];
+    [self.topView setTitle:self.readerController.currentRecordModel.chapterModel.name];
     if (isShow) {
         self.topView.hidden = NO;
     }
@@ -183,6 +199,9 @@
         self.moreView.hidden = NO;
     }
     self.isMoreShow = isShow;
+    [self.menuTapView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.inset(kReaderMoreHeight);
+    }];
     [UIView animateWithDuration:0.2 animations:^{
         if (isShow) {
             self.moreView.transform = CGAffineTransformMakeTranslation(0, -kReaderMoreHeight);
@@ -203,6 +222,12 @@
 #pragma mark - action
 - (void)actionSingleTap {
     [self showMenu:!self.isMenuShow];
+    self.singleTap.enabled = NO;
+}
+
+- (void)actionMenuTap {
+    [self showMenu:!self.isMenuShow];
+    self.singleTap.enabled = YES;
 }
 
 - (void)actionSpeech {
@@ -273,7 +298,9 @@
 }
 
 - (void)readerTopViewClickMore:(USReaderTopView *)readerTopView {
-    
+    if ([self.delegate respondsToSelector:@selector(readMenuClickBack:)]) {
+        [self.delegate readMenuClickMore:self];
+    }
 }
 
 #pragma mark - getter
@@ -298,6 +325,14 @@
         _moreView = [[USReaderMoreView alloc] initWithMenu:self];
     }
     return _moreView;
+}
+
+- (UIControl *)menuTapView {
+    if (!_menuTapView) {
+        _menuTapView = [[UIControl alloc] init];
+        [_menuTapView addTarget:self action:@selector(actionMenuTap) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _menuTapView;
 }
 
 - (UIButton *)speechButton {
