@@ -35,7 +35,8 @@
 
 /// 点击返回
 - (void)readMenuClickBack:(USReaderMenu *)readMenu {
-    
+    [[USReaderAudioPlayer sharedPlayer] stop];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /// 点击更多
