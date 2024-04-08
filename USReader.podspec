@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'USReader'
-  s.version          = '0.1.8'
+  s.version          = '0.1.9'
   s.summary          = 'A short description of USReader.'
 
 # This description is used to generate tags and improve search results.
@@ -24,8 +24,8 @@ A novel reader for cloudreve.
   s.homepage         = 'https://github.com/nongyun.cao/USReader'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'nongyun.cao' => 'nongyun.cao@okg.com' }
-  s.source           = { :git => 'https://github.com/nongyun.cao/USReader.git', :tag => s.version.to_s }
+  s.author           = { 'noah37' => '2252055382@qq.com' }
+  s.source           = { :git => 'git@github.com:Noah37/USReader.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '12.0'
