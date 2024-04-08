@@ -135,6 +135,9 @@ typedef NSDictionary<NSString *, NSValue *> USValueDict;
         UIImage *avatar = [[UIImage alloc] initWithContentsOfFile:[avatarUrl path]];
         NSString *bookContent = [[NSString alloc] initWithContentsOfURL:bookUrl encoding:NSUTF8StringEncoding error:nil];
         NSArray *bookLines = [bookContent componentsSeparatedByString:@"\r\n"];
+        if (bookLines.count <= 1) {
+            bookLines = [bookContent componentsSeparatedByString:@"\n"];
+        }
         NSString *author = bookLines[1];
         NSString *catalog = bookLines[2];
         NSString *bookDesc = bookLines[3];
