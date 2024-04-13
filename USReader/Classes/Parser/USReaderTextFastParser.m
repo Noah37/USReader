@@ -374,8 +374,12 @@ typedef NSDictionary<NSString *, NSValue *> USValueDict;
     NSMutableArray <USReaderChapterListModel *> *chapterListModels = [NSMutableArray array];
     NSMutableDictionary <NSString *, USValueDict*>*ranges = [NSMutableDictionary dictionary];
     NSString *parten = [NSString stringWithFormat:@"%@第[0-9一二三四五六七八九十百千]*[章回].*", [NSString chapterPrefix]];
+    NSString *parten2 = [NSString stringWithFormat:@"%@ 第[0-9一二三四五六七八九十百千]*[章回].*", [NSString chapterPrefix]];
     NSString *cont = [USReaderParser contentTypesetting:content];
     NSArray <NSTextCheckingResult *>*results = [cont matches:parten];
+    if (results.count == 0) {
+        results = [cont matches:parten2];
+    }
     
     if (results.count > 0) {
         NSInteger count = results.count;
