@@ -1,6 +1,6 @@
 {
   "name": "USReader",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "summary": "A short description of USReader.",
   "description": "A novel reader for cloudreve.",
   "homepage": "https://github.com/nongyun.cao/USReader",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "git@github.com:Noah37/USReader.git",
-    "tag": "0.1.9"
+    "tag": "0.1.10"
   },
   "platforms": {
     "ios": "12.0"
