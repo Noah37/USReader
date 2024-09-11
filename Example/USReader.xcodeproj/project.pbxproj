@@ -24,6 +24,7 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
+		AD5F05E12C918F9B009D3917 /* 第1章出战.txt in Resources */ = {isa = PBXBuildFile; fileRef = AD5F05E02C918F9B009D3917 /* 第1章出战.txt */; };
 		C522A16D6FF59AFC5546B704 /* Pods_USReader_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E1ADE1656E80804485A6561 /* Pods_USReader_Tests.framework */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +69,7 @@
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		94F7E165E082B4B821E6EBE4 /* USReader.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = USReader.podspec; path = ../USReader.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		AD5F05E02C918F9B009D3917 /* 第1章出战.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "第1章出战.txt"; sourceTree = "<group>"; };
 		DEAC35F2FD522FDA8D60F8EA /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		F233EAAD0582F148205C746C /* Pods-USReader_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-USReader_Example.debug.xcconfig"; path = "Target Support Files/Pods-USReader_Example/Pods-USReader_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -136,6 +138,7 @@
 		6003F593195388D20070C39A /* Example for USReader */ = {
 			isa = PBXGroup;
 			children = (
+				AD5F05E02C918F9B009D3917 /* 第1章出战.txt */,
 				4F5C09662B5C28AE00BDB191 /* 学霸的黑科技系统 */,
 				6003F59C195388D20070C39A /* USAppDelegate.h */,
 				6003F59D195388D20070C39A /* USAppDelegate.m */,
@@ -287,6 +290,7 @@
 			files = (
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
+				AD5F05E12C918F9B009D3917 /* 第1章出战.txt in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				4F5C09672B5C28AE00BDB191 /* 学霸的黑科技系统 in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,

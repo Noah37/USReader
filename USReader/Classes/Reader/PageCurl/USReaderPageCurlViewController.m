@@ -423,7 +423,7 @@
     if (labs(self.tempNumber) % 2 == 0) { // 背面
         USReaderRecordModel *beforeRecordModel = [self getBeforeRecordModel:recordModel];
         if (!beforeRecordModel) {
-            self.tempNumber += 1;
+            self.tempNumber += 2;
             return nil;
         }
         USReaderBgViewController *bgVC = [[USReaderBgViewController alloc] initWithRecordModel:beforeRecordModel];
@@ -455,7 +455,8 @@
     } else {
         USReaderRecordModel *afterRecordModel = [self getAfterRecordModel:recordModel];
         if (!afterRecordModel) {
-            self.tempNumber -= 1;
+            // 正面与背面都加了，减去
+            self.tempNumber -= 2;
             return nil;
         }
         USReaderViewController *afterVC = [[USReaderViewController alloc] initWithRecordModel:afterRecordModel];

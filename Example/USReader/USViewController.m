@@ -26,7 +26,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"斗罗大陆" ofType:nil];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"第1章出战.txt" ofType:nil];
     NSString *blackTechPath = [[NSBundle mainBundle] pathForResource:@"学霸的黑科技系统" ofType:nil];
     if (path.length > 0) {
         self.titleLabel.text = path.lastPathComponent;

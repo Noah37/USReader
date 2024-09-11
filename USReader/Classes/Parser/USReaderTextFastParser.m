@@ -430,10 +430,10 @@ typedef NSDictionary<NSString *, NSValue *> USValueDict;
         }
     } else {
         USReaderChapterListModel *chapterListModel = [[USReaderChapterListModel alloc] init];
-        chapterListModel.name = @"开始";
+        chapterListModel.name = @"";
         chapterListModel.bookId = readModel.bookID;
         chapterListModel.idString = [NSNumber numberWithInt:1];
-        NSNumber *priority = @(0);
+        NSNumber *priority = @(1);
         
         ranges[chapterListModel.idString.stringValue] = @{priority.stringValue:[NSValue valueWithRange:NSMakeRange(0, cont.length)]};
         
