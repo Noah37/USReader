@@ -192,7 +192,8 @@
         if (isExist) {
             [afterRecordModel modify:chapterId toPage:0 isSave:YES];
         } else {
-            [USReaderTextFastParser parser:self.readerModel chapterId:chapterId isUpdateFont:YES];
+            USReaderChapterModel *chapterModel = [USReaderTextFastParser parser:self.readerModel chapterId:chapterId isUpdateFont:YES];
+            [afterRecordModel modify:chapterModel page:0 isSave:YES];
         }
     } else {
         [afterRecordModel nextPage];
