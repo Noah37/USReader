@@ -6,7 +6,7 @@ PODS:
   - SpeechEngineTtsToB (5.4.2.1-bugfix):
     - TTNetworkManager (= 5.0.29.22)
   - TTNetworkManager (5.0.29.22)
-  - USReader (0.1.0):
+  - USReader (0.1.10):
     - Masonry
     - SDWebImage
     - SpeechEngineTtsToB (= 5.4.2.1-bugfix)
@@ -39,10 +39,10 @@ SPEC CHECKSUMS:
   SDWebImage: 96e0c18ef14010b7485210e92fac888587ebb958
   SpeechEngineTtsToB: f0ba560499135b03339beb87e90a7215249b3d77
   TTNetworkManager: 47d93100d944e2ae807e035d8636df92fd5cc390
-  USReader: 4abf621265807915b27139e96034a58b881c99d9
+  USReader: b6f778166ee68b7a4647d0a443b030a12b33ce3a
   YYCategories: 6bcd4314c6661a561410dce4a793379ebd306abd
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
 PODFILE CHECKSUM: 7873ad2ffa74d24c5f03daf4abce60b92205dce0
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.15.2

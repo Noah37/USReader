@@ -104,6 +104,7 @@
     self.moreView.hidden = YES;
     self.isMenuShow = NO;
     self.isMoreShow = NO;
+    self.singleTap.enabled = YES;
 }
 
 - (void)reload {
